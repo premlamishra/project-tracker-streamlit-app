@@ -4,10 +4,7 @@ import matplotlib.pyplot as plt
 from datetime import datetime
 from openpyxl import load_workbook
 
-# -----------------------------------
-# Functions
-# -----------------------------------
-
+#functions
 def load_data():
     return pd.read_excel("projects.xlsx")
 
@@ -40,20 +37,14 @@ def update_status(project_name, new_status):
     else:
         st.warning("❗Project not found.")
 
-# -----------------------------------
-# Streamlit App Layout
-# -----------------------------------
-
+#streamlit app layout
 st.set_page_config(page_title="Project Tracker", layout="wide")
 st.title("Internal Project Tracker")
 
 menu = ["📋 View Projects", "➕ Add Project", "📝 Update Status", "📈 Analytics"]
 choice = st.sidebar.radio("Navigate", menu)
 
-# -----------------------------------
-# Add Project
-# -----------------------------------
-
+#add project
 if choice == "➕ Add Project":
     st.subheader("Add New Project")
     name = st.text_input("Project Name")
@@ -67,10 +58,7 @@ if choice == "➕ Add Project":
         else:
             st.error("Please fill all fields.")
 
-# -----------------------------------
-# View Projects
-# -----------------------------------
-
+#view project
 elif choice == "📋 View Projects":
     st.subheader("All Projects")
     df = load_data()
@@ -99,10 +87,7 @@ elif choice == "📋 View Projects":
 
     st.dataframe(df.style.apply(highlight_deadline, axis=1), use_container_width=True)
 
-# -----------------------------------
-# Update Status
-# -----------------------------------
-
+#update status
 elif choice == "📝 Update Status":
     st.subheader("Update Project Status")
     df = load_data()
@@ -114,10 +99,7 @@ elif choice == "📝 Update Status":
     if st.button("Update"):
         update_status(selected_project, new_status)
 
-# -----------------------------------
-# Analytics
-# -----------------------------------
-
+#analytics
 elif choice == "📈 Analytics":
     st.subheader("Project Status Analytics")
     df = load_data()
